@@ -52,8 +52,10 @@ public class Email implements IEmail {
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public Response sendRegistrationEmail(Register register) {
+
         ResultStatus resultStatus = new RegistrationEmail().sendRegisterationMail(register);
         LOGGER.info("" + resultStatus);
+        System.out.println("" + resultStatus);
         return Response.ok(resultStatus).build();
     }
 
@@ -63,8 +65,10 @@ public class Email implements IEmail {
     @Produces(MediaType.APPLICATION_JSON)
     public Response sendSubscriptionEmail(InputSubscriptionData inputSubscriptionData) {
 
+        System.out.println("sendSubscriptionEmail");
+
         ResultStatus resultStatus = new SubscriptionEmail().sendSubscriptionMail(inputSubscriptionData);
-        LOGGER.info("" + resultStatus);
+        System.out.println("" + resultStatus);
         return Response.ok(resultStatus).build();
     }
 }

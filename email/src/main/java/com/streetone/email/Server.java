@@ -1,34 +1,37 @@
 package com.streetone.email;
 
 import java.util.Arrays;
+
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
+import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 public class Server {
+    private static final Logger LOGGER = Logger.getLogger(Server.class);
 
     protected Server() throws Exception {
         JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
         sf.setResourceClasses(Email.class);
-        sf.setResourceProvider(Email.class, 
-            new SingletonResourceProvider(new Email()));
-	sf.setProviders(Arrays.< Object >asList(new JacksonJsonProvider()));
-	ObjectMapper mapper = new ObjectMapper();
-	mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        sf.setAddress("http://172.31.1.150:12000/");
+        sf.setResourceProvider(Email.class, new SingletonResourceProvider(new Email()));
+        sf.setProviders(Arrays.<Object> asList(new JacksonJsonProvider()));
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        sf.setAddress("http://localhost:9090/");
 
         sf.create();
     }
 
     public static void main(String args[]) throws Exception {
         new Server();
-        System.out.println("Email Server ready...");
+        LOGGER.info("Email Server ready...");
 
-        Thread.sleep(240 * 60 * 60 * 1000); // 240 hours 
-        //Thread.sleep(5 * 60 * 1000); // 5 mins
-        System.out.println("Email Server exiting");
+        Thread.sleep(240 * 60 * 60 * 1000); // 240 hours
+        // Thread.sleep(5 * 60 * 1000); // 5 mins
+        LOGGER.info("Email Server exiting");
         System.exit(0);
     }
 }

@@ -1,7 +1,11 @@
 package com.streetone.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -34,15 +38,30 @@ public class SendMail {
 
         String filename = "mailconfig.properties";
 
-        input = SendMail.class.getClassLoader().getResourceAsStream(filename);
+        Path configFilePath = Paths.get(filename);
+        LOGGER.info("|| " + configFilePath.toUri().getPath());
+        File file = new File(configFilePath.toAbsolutePath().toString());
+        if (file.length() > 0) {
+            LOGGER.info("GOt it");
+        } else {
+            LOGGER.info("Cant fetch the file");
+        }
+
+        input = new FileInputStream(file);
+        // input = SendMail.class.getClassLoader().getResourceAsStream(filename);
         if (input == null) {
             LOGGER.info("Sorry, unable to find " + filename);
             return;
         }
 
         props.load(input);
+
+        LOGGER.info(props.getProperty("mail.smtp.auth"));
+        LOGGER.info(props.getProperty("mail.smtp.port"));
+        LOGGER.info(props.getProperty("mail.smtp.host"));
+
         props.put("mail.smtp.auth", props.getProperty("mail.smtp.auth"));
-        // props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.port", props.getProperty("mail.smtp.port"));
         props.put("mail.smtp.host", props.getProperty("mail.smtp.host"));
 
