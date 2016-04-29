@@ -207,14 +207,22 @@
 			<artifactId>javax.ws.rs-api</artifactId>
 		</dependency>
 		<!-- MISSING ARTIFACTS -->
-		<!-- <dependency> <groupId>com.streetone</groupId> <artifactId>model</artifactId> 
-			<version>0.0.1-SNAPSHOT</version> </dependency> <dependency> <groupId>com.streetone</groupId> 
-			<artifactId>controller</artifactId> <version>0.0.1-SNAPSHOT</version> </dependency> -->
+		<!-- <dependency>
+			<groupId>com.streetone</groupId>
+			<artifactId>model</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.streetone</groupId>
+			<artifactId>controller</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency> -->
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.json</artifactId>
 			<version>1.0.4</version>
 		</dependency>
+
 		<!--<dependency> <groupId>com.streetone</groupId> <artifactId>ds</artifactId> 
 			<version>0.0.1-SNAPSHOT</version> </dependency> -->
 

@@ -8,8 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -17,6 +15,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.log4j.Logger;
 
 import com.streetone.Exception.AppException;
 import com.streetone.common.ErrorCodes;
@@ -32,33 +32,31 @@ public class SendMail {
 
     public static void Sendmail(MailContext mailContext) throws IOException, AppException {
 
-        LOGGER.info("Send mail Started");
+        System.out.println("Send mail Started");
         final Properties props = new Properties();
         InputStream input = null;
 
         String filename = "mailconfig.properties";
 
         Path configFilePath = Paths.get(filename);
-        LOGGER.info("|| " + configFilePath.toUri().getPath());
+        System.out.println("|| " + configFilePath.toUri().getPath());
         File file = new File(configFilePath.toAbsolutePath().toString());
-        if (file.length() > 0) {
-            LOGGER.info("GOt it");
-        } else {
-            LOGGER.info("Cant fetch the file");
+        if (file.length() <= 0) {
+            System.out.println("Cant fetch the file");
         }
 
         input = new FileInputStream(file);
         // input = SendMail.class.getClassLoader().getResourceAsStream(filename);
         if (input == null) {
-            LOGGER.info("Sorry, unable to find " + filename);
+            System.out.println("Sorry, unable to find " + filename);
             return;
         }
 
         props.load(input);
 
-        LOGGER.info(props.getProperty("mail.smtp.auth"));
-        LOGGER.info(props.getProperty("mail.smtp.port"));
-        LOGGER.info(props.getProperty("mail.smtp.host"));
+        System.out.println(props.getProperty("mail.smtp.auth"));
+        System.out.println(props.getProperty("mail.smtp.port"));
+        System.out.println(props.getProperty("mail.smtp.host"));
 
         props.put("mail.smtp.auth", props.getProperty("mail.smtp.auth"));
         props.put("mail.smtp.starttls.enable", "true");
@@ -86,7 +84,7 @@ public class SendMail {
             message.setContent(mailContext.getBody(), MIME_TYPE);
             Transport.send(message);
 
-            LOGGER.info("Mail Sent!!");
+            System.out.println("Mail Sent!!");
 
         } catch (MessagingException e) {
             e.printStackTrace();

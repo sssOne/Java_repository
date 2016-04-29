@@ -1,22 +1,13 @@
 package com.streetone.model;
 
 public class InputSubscriptionData {
-    //
-    // input will contain the details for sending a subscription email.
-    // .
-    // - first name .
-    // - last name
-    // - email address.
-    // - fields associated with subscription contract
-    //
-    // this method should call a controller class SubscriptionEmail
-    //
-    // response will be a json object.
 
     public String firstName;
     public String lastName;
     public String email;
     public String subscriptionID;
+    public String subscriptionAgreement;
+    public String unsubscriptionAgreement;
 
     public String getFirstName() {
         return firstName;
@@ -48,6 +39,22 @@ public class InputSubscriptionData {
 
     public void setSubscriptionID(String subscriptionID) {
         this.subscriptionID = subscriptionID;
+    }
+
+    public String getSubscriptionAgreement() {
+        return subscriptionAgreement;
+    }
+
+    public void setSubscriptionAgreement(String subscriptionAgreement) {
+        this.subscriptionAgreement = subscriptionAgreement;
+    }
+
+    public String getUnsubscriptionAgreement() {
+        return unsubscriptionAgreement;
+    }
+
+    public void setUnsubscriptionAgreement(String unsubscriptionAgreement) {
+        this.unsubscriptionAgreement = unsubscriptionAgreement;
     }
 
     @Override

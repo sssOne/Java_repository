@@ -5,6 +5,8 @@ public class User {
     public String email;
     public String firstName;
     public String lastName;
+    public String code;
+    public String phoneNo;
 
     public String getEmail() {
         return email;
@@ -30,9 +32,26 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
     @Override
     public String toString() {
-        return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+        return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", code=" + code
+                + ", phoneNo=" + phoneNo + "]";
     }
 
 }

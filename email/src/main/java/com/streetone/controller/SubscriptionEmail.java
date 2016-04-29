@@ -9,52 +9,90 @@ import com.streetone.util.SendMail;
 
 public class SubscriptionEmail {
 
-	public ResultStatus sendSubscriptionMail(
-			InputSubscriptionData inputSubscriptionData) {
+    public ResultStatus sendSubscriptionMail(InputSubscriptionData inputSubscriptionData) {
 
-		// prepare MailContext first
-		MailContext context = createMailContext(inputSubscriptionData);
-		try {
-			SendMail.Sendmail(context);
+        // prepare MailContext first
+        MailContext context = createSubscriptionBody(inputSubscriptionData);
+        try {
+            SendMail.Sendmail(context);
 
-			ResultStatus resultStatus = new ResultStatus();
-			resultStatus.setStatus(true);
+            ResultStatus resultStatus = new ResultStatus();
+            resultStatus.setStatus(true);
 
-			User user = new User();
-			user.setEmail(inputSubscriptionData.getEmail());
-			user.setFirstName(inputSubscriptionData.getFirstName());
-			user.setLastName(inputSubscriptionData.getLastName());
+            User user = new User();
+            user.setEmail(inputSubscriptionData.getEmail());
+            user.setFirstName(inputSubscriptionData.getFirstName());
+            user.setLastName(inputSubscriptionData.getLastName());
 
-			ObjectMapper mapper = new ObjectMapper();
-			resultStatus.setData(mapper.writeValueAsString(user));
-			return resultStatus;
-		} catch (Exception e) {
+            ObjectMapper mapper = new ObjectMapper();
+            resultStatus.setData(mapper.writeValueAsString(user));
+            return resultStatus;
+        } catch (Exception e) {
 
-			ResultStatus resultStatus = new ResultStatus();
-			resultStatus.setStatus(false);
-			resultStatus.setData(null);
-			return resultStatus;
-		}
-	}
+            ResultStatus resultStatus = new ResultStatus();
+            resultStatus.setStatus(false);
+            resultStatus.setData(null);
+            return resultStatus;
+        }
+    }
 
-	private MailContext createMailContext(
-			InputSubscriptionData inputSubscriptionData) {
-		MailContext mailContext = new MailContext();
+    private MailContext createSubscriptionBody(InputSubscriptionData inputSubscriptionData) {
+        MailContext mailContext = new MailContext();
 
-		StringBuilder stringbuilderObject = new StringBuilder();
-		stringbuilderObject
-				.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">");
-		stringbuilderObject.append("<html><div>Greetings "
-				+ inputSubscriptionData.getFirstName() + " "
-				+ inputSubscriptionData.getLastName() + ", </div>");
-		stringbuilderObject
-				.append("<div>Thanks for subscribing to us. Your sucripition ID is "
-						+ inputSubscriptionData.getSubscriptionID() + ".</div>");
-		stringbuilderObject.append("Regards, <br>XXXX</html>");
-		mailContext.setSubject("Subscription Alert!!");
-		mailContext.setBody(stringbuilderObject.toString());
-		mailContext.setToAddress(inputSubscriptionData.getEmail());
+        StringBuilder stringbuilderObject = new StringBuilder();
+        stringbuilderObject.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">");
+        stringbuilderObject.append("<html><div>Greetings " + inputSubscriptionData.getFirstName() + " "
+                + inputSubscriptionData.getLastName() + ", </div>");
+        stringbuilderObject.append("<div>Thanks for subscribing to us. Your sucripition ID is "
+                + inputSubscriptionData.getSubscriptionID() + ".</div>");
+        stringbuilderObject.append("Regards, <br>XXXX</html>");
+        mailContext.setSubject("Subscription Alert!!");
+        mailContext.setBody(stringbuilderObject.toString());
+        mailContext.setToAddress(inputSubscriptionData.getEmail());
 
-		return mailContext;
-	}
+        return mailContext;
+    }
+
+    private MailContext createUnSubscribingBody(InputSubscriptionData inputSubscriptionData) {
+        MailContext mailContext = new MailContext();
+
+        StringBuilder stringbuilderObject = new StringBuilder();
+        stringbuilderObject.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">");
+        stringbuilderObject.append("<html><div>Dear " + inputSubscriptionData.getFirstName() + " "
+                + inputSubscriptionData.getLastName() + ", </div>");
+        stringbuilderObject.append("<div>Your Unsubscribing Agreement is:</div> ");
+        stringbuilderObject.append("<div>" + inputSubscriptionData.getUnsubscriptionAgreement() + ".</div>");
+        stringbuilderObject.append("Regards, <br>XXXX</html>");
+        mailContext.setSubject("Unsubscribing Agreement");
+        mailContext.setBody(stringbuilderObject.toString());
+        mailContext.setToAddress(inputSubscriptionData.getEmail());
+
+        return mailContext;
+    }
+
+    public ResultStatus unsubscriptionMail(InputSubscriptionData inputSubscriptionData) {
+        // prepare Mail Body first
+        MailContext context = createUnSubscribingBody(inputSubscriptionData);
+        try {
+            SendMail.Sendmail(context);
+
+            ResultStatus resultStatus = new ResultStatus();
+            resultStatus.setStatus(true);
+
+            User user = new User();
+            user.setEmail(inputSubscriptionData.getEmail());
+            user.setFirstName(inputSubscriptionData.getFirstName());
+            user.setLastName(inputSubscriptionData.getLastName());
+
+            ObjectMapper mapper = new ObjectMapper();
+            resultStatus.setData(mapper.writeValueAsString(user));
+            return resultStatus;
+        } catch (Exception e) {
+
+            ResultStatus resultStatus = new ResultStatus();
+            resultStatus.setStatus(false);
+            resultStatus.setData(null);
+            return resultStatus;
+        }
+    }
 }
