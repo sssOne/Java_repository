@@ -35,12 +35,7 @@ import javax.ws.rs.core.Variant;
 
 import org.apache.log4j.Logger;
 
-import com.streetone.controller.AuthenticationEmail;
-import com.streetone.controller.ForgotPasswordEmail;
-import com.streetone.controller.RebalanceEmail;
-import com.streetone.controller.RegistrationEmail;
-import com.streetone.controller.SubscriptionEmail;
-import com.streetone.controller.TransferEmail;
+import com.streetone.controller.UserController;
 // model classes go here
 import com.streetone.model.InputSubscriptionData;
 import com.streetone.model.RebalanceData;
@@ -71,7 +66,7 @@ public class Email implements IEmail {
     @Override
     public Response sendRegistrationEmail(Register register) {
 
-        ResultStatus resultStatus = new RegistrationEmail().sendRegisterationMail(register);
+        ResultStatus resultStatus = new UserController().sendRegisterationMail(register);
         logger.info("" + resultStatus);
         return Response.ok(resultStatus).build();
     }
@@ -92,7 +87,7 @@ public class Email implements IEmail {
         if (user.getEmail().trim().equals("") || user.getEmail() == null) {
             return Response.notAcceptable(new ArrayList<Variant>()).build();
         } else {
-            resultStatus = new AuthenticationEmail().sendAuthVerificationMail(user);
+            resultStatus = new UserController().sendAuthVerificationMail(user);
             logger.info("" + resultStatus);
             return Response.ok(resultStatus).build();
         }
@@ -114,7 +109,7 @@ public class Email implements IEmail {
         if (user.getEmail().trim().equals("") || user.getEmail() == null) {
             return Response.notAcceptable(new ArrayList<Variant>()).build();
         } else {
-            resultStatus = new ForgotPasswordEmail().sendForgotPasswordMail(user);
+            resultStatus = new UserController().sendForgotPasswordMail(user);
             logger.info("" + resultStatus);
             return Response.ok(resultStatus).build();
         }
@@ -135,7 +130,7 @@ public class Email implements IEmail {
 
         logger.info("send Subscription Email");
 
-        ResultStatus resultStatus = new SubscriptionEmail().sendSubscriptionMail(inputSubscriptionData);
+        ResultStatus resultStatus = new UserController().sendSubscriptionMail(inputSubscriptionData);
         System.out.println("" + resultStatus);
         return Response.ok(resultStatus).build();
     }
@@ -152,7 +147,7 @@ public class Email implements IEmail {
     @Override
     public Response unsubscribe(InputSubscriptionData inputSubscriptionData) {
         logger.info("user authentication service");
-        ResultStatus resultStatus = new SubscriptionEmail().unsubscriptionMail(inputSubscriptionData);
+        ResultStatus resultStatus = new UserController().unsubscriptionMail(inputSubscriptionData);
         logger.info("" + resultStatus);
         return Response.ok(resultStatus).build();
     }
@@ -169,7 +164,7 @@ public class Email implements IEmail {
     @Override
     public Response rebalance(RebalanceData rebalanceData) {
         logger.info("rebalance service");
-        ResultStatus resultStatus = new RebalanceEmail().rebalanceMail(rebalanceData);
+        ResultStatus resultStatus = new UserController().rebalanceMail(rebalanceData);
         logger.info("" + resultStatus);
         return Response.ok(resultStatus).build();
     }
@@ -186,7 +181,7 @@ public class Email implements IEmail {
     @Override
     public Response transferConfirmation(User user) {
         logger.info("transfer Confirmation service");
-        ResultStatus resultStatus = new TransferEmail().transferConfirmation(user);
+        ResultStatus resultStatus = new UserController().transferConfirmation(user);
         logger.info("" + resultStatus);
         return Response.ok(resultStatus).build();
     }
