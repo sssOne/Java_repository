@@ -1,4 +1,4 @@
-package com.streetone.util;
+package main.java.com.streetone.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,11 +16,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import main.java.com.streetone.Exception.AppException;
+import main.java.com.streetone.common.ErrorCodes;
+import main.java.com.streetone.model.MailContext;
 
-import com.streetone.Exception.AppException;
-import com.streetone.common.ErrorCodes;
-import com.streetone.model.MailContext;
+import org.apache.log4j.Logger;
 
 /**
  * @author Shalaka Nayal

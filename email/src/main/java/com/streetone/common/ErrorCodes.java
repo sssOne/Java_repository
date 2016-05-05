@@ -1,4 +1,4 @@
-package com.streetone.common;
+package main.java.com.streetone.common;
 
 /**
  * The Enum ErrorCodes.

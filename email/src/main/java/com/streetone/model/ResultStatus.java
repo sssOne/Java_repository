@@ -1,4 +1,4 @@
-package com.streetone.model;
+package main.java.com.streetone.model;
 
 public class ResultStatus {
 

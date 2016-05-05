@@ -1,4 +1,4 @@
-package com.streetone.model;
+package main.java.com.streetone.model;
 
 public class User {
 
@@ -7,6 +7,7 @@ public class User {
     public String lastName;
     public String code;
     public String phoneNo;
+    public String rebalanceID;
 
     public String getEmail() {
         return email;
@@ -48,10 +49,18 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
+    public String getRebalanceID() {
+        return rebalanceID;
+    }
+
+    public void setRebalanceID(String rebalanceID) {
+        this.rebalanceID = rebalanceID;
+    }
+
     @Override
     public String toString() {
         return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", code=" + code
-                + ", phoneNo=" + phoneNo + "]";
+                + ", phoneNo=" + phoneNo + ", rebalanceID=" + rebalanceID + "]";
     }
 
 }

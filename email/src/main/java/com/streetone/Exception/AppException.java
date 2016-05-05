@@ -1,6 +1,6 @@
-package com.streetone.Exception;
+package main.java.com.streetone.Exception;
 
-import com.streetone.common.ErrorCodes;
+import main.java.com.streetone.common.ErrorCodes;
 
 /**
  * The Class AppException.
