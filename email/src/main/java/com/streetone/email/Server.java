@@ -2,8 +2,6 @@ package main.java.com.streetone.email;
 
 import java.util.Arrays;
 
-import main.java.com.streetone.controller.impl.EmailControllerImpl;
-
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxrs.lifecycle.SingletonResourceProvider;
 import org.apache.log4j.Logger;
@@ -17,8 +15,8 @@ public class Server {
 
     protected Server() throws Exception {
         JAXRSServerFactoryBean sf = new JAXRSServerFactoryBean();
-        sf.setResourceClasses(EmailControllerImpl.class);
-        sf.setResourceProvider(EmailControllerImpl.class, new SingletonResourceProvider(new EmailControllerImpl()));
+        sf.setResourceClasses(EmailServiceImpl.class);
+        sf.setResourceProvider(EmailServiceImpl.class, new SingletonResourceProvider(new EmailServiceImpl()));
         sf.setProviders(Arrays.<Object> asList(new JacksonJsonProvider()));
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

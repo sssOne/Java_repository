@@ -1,26 +1,36 @@
 package main.java.com.streetone.email;
 
-import main.java.com.streetone.model.InputSubscriptionData;
-import main.java.com.streetone.model.ResultStatus;
-import main.java.com.streetone.model.User;
+import javax.jws.WebService;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import main.java.com.streetone.model.MailDTO;
 
 /**
- * The Interface IEmail.
+ * The Interface IEmailService.
  * 
- * @author NIRAJ
- * 
+ * @author Nilay
  */
-
+@Path("/")
+@WebService(name = "emailService")
 public interface IEmailService {
 
     /**
-     * Send registration email.
+     * Send mail.
      *
-     * @param user the user
-     * @param inputSubscriptionData the input subscription data
-     * @param type the type
+     * @param mailDTO the mail dto
+     * @param emailType the email type
      * @return the response
      */
-    ResultStatus sendMail(User user, InputSubscriptionData inputSubscriptionData, String type);
+    @POST
+    @Path("/domail/")
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    Response sendMail(MailDTO mailDTO, @QueryParam("emailType") String emailType);
 
 }

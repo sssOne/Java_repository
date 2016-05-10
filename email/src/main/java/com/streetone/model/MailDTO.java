@@ -1,13 +1,25 @@
 package main.java.com.streetone.model;
 
-public class InputSubscriptionData {
-
+public class MailDTO {
+    public String email;
     public String firstName;
     public String lastName;
-    public String email;
+    public String code;
+    public String phoneNo;
+    public String rebalanceID;
+
+    // inputsubscription
     public String subscriptionID;
     public String subscriptionAgreement;
     public String unsubscriptionAgreement;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -25,12 +37,28 @@ public class InputSubscriptionData {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCode() {
+        return code;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public String getRebalanceID() {
+        return rebalanceID;
+    }
+
+    public void setRebalanceID(String rebalanceID) {
+        this.rebalanceID = rebalanceID;
     }
 
     public String getSubscriptionID() {
@@ -59,8 +87,10 @@ public class InputSubscriptionData {
 
     @Override
     public String toString() {
-        return "firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", subscriptionID="
-                + subscriptionID;
+        return "MailDTO [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", code=" + code
+                + ", phoneNo=" + phoneNo + ", rebalanceID=" + rebalanceID + ", subscriptionID=" + subscriptionID
+                + ", subscriptionAgreement=" + subscriptionAgreement + ", unsubscriptionAgreement="
+                + unsubscriptionAgreement + "]";
     }
 
 }
