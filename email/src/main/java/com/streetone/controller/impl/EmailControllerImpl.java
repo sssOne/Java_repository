@@ -28,33 +28,33 @@ public class EmailControllerImpl implements IEmailController {
         MailContext context = null;
         User returnUser = new User();
         ResultStatus resultStatus = new ResultStatus();
-        switch (emailType) {
-        case "register":
-            context = createRegisterMailContext(mailDTO);
-            break;
-        case "auth":
-            context = createAuthMailContext(mailDTO);
-            break;
-        case "forgetpwd":
-            context = createForgotPasswordBody(mailDTO);
-            break;
-        case "subscription":
-            context = createSubscriptionBody(mailDTO);
-            break;
-        case "unsubscription":
-            context = createUnSubscribingBody(mailDTO);
-            break;
-        case "transfer":
-            context = createTransactionDetailBody(mailDTO);
-            break;
-        case "rebalance":
-            context = createRebalanceBody(mailDTO);
-            break;
-        default:
-            break;
-        }
-
         try {
+            switch (emailType) {
+            case "register":
+                context = createRegisterMailContext(mailDTO);
+                break;
+            case "auth":
+                context = createAuthMailContext(mailDTO);
+                break;
+            case "forgetpwd":
+                context = createForgotPasswordBody(mailDTO);
+                break;
+            case "subscription":
+                context = createSubscriptionBody(mailDTO);
+                break;
+            case "unsubscription":
+                context = createUnSubscribingBody(mailDTO);
+                break;
+            case "transfer":
+                context = createTransactionDetailBody(mailDTO);
+                break;
+            case "rebalance":
+                context = createRebalanceBody(mailDTO);
+                break;
+            default:
+                break;
+            }
+
             SendMail.Sendmail(context);
             resultStatus.setStatus(true);
 
@@ -75,7 +75,7 @@ public class EmailControllerImpl implements IEmailController {
             resultStatus.setData(mapper.writeValueAsString(returnUser));
         } catch (Exception e) {
             resultStatus.setStatus(false);
-            resultStatus.setData(null);
+            resultStatus.setData(e.getMessage());
             return resultStatus;
         }
         return resultStatus;
@@ -86,14 +86,18 @@ public class EmailControllerImpl implements IEmailController {
      *
      * @param mailDTO the mail dto
      * @return the mail context
+     * @throws Exception
      */
-    private MailContext createRegisterMailContext(MailDTO mailDTO) {
+    private MailContext createRegisterMailContext(MailDTO mailDTO) throws Exception {
+
+        if (mailDTO.getEmail() == null || mailDTO.getEmail() == "" || mailDTO.getEmail().isEmpty()) {
+            throw new Exception("Email ID required.");
+        }
         MailContext mailContext = new MailContext();
 
         StringBuilder stringbuilderObject = new StringBuilder();
         stringbuilderObject.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">");
-        stringbuilderObject.append("<html><div>Greetings " + mailDTO.getFirstName() + " " + mailDTO.getLastName()
-                + ", </div>");
+        stringbuilderObject.append("<html><div>Greetings " + mailDTO.getEmail() + ", </div>");
         stringbuilderObject.append("<div> Now you are registered to our site with " + mailDTO.getEmail() + ". </div>");
         stringbuilderObject.append("<div>Thanks for registering with us again.</div>");
         stringbuilderObject.append("Regards, <br>XXXX</html>");
@@ -131,12 +135,16 @@ public class EmailControllerImpl implements IEmailController {
      *
      * @param mailDTO the mail dto
      * @return the mail context
+     * @throws Exception 
      */
-    private MailContext createForgotPasswordBody(MailDTO mailDTO) {
+    private MailContext createForgotPasswordBody(MailDTO mailDTO) throws Exception {
+        if (mailDTO.getEmail() == null || mailDTO.getEmail() == "" || mailDTO.getEmail().isEmpty()) {
+            throw new Exception("Email ID required.");
+        }
         MailContext mailContext = new MailContext();
         StringBuilder stringbuilderObject = new StringBuilder();
         stringbuilderObject.append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">");
-        stringbuilderObject.append("<html><div>Greetings " + mailDTO.getFirstName() + " " + mailDTO.getLastName()
+        stringbuilderObject.append("<html><div>Greetings " + mailDTO.getEmail()
                 + ", </div>");
         stringbuilderObject.append("<div>Please follow the following instructions to retain your password.</div>");
         stringbuilderObject.append("Regards, <br>XXXX</html>");
